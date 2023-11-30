@@ -1,38 +1,23 @@
 #!/bin/bash
 
-echo "start install `date` ">>/tmp/oa.txt
+echo "start install $(date) ">>/tmp/oa.txt
 
-cd /config
-echo "Hello. Thanks for trying OpenAudible for Docker!" 
-echo "First time setup... Downloading latest OpenAudible...."  
-wget -q --show-progress https://openaudible.org/latest/OpenAudible_x86_64.sh -O openaudible_installer.sh 
-
-echo "Running OpenAudible installer" # sudo is used to install to /usr/local 
-sudo sh ./openaudible_installer.sh -q -overwrite -dir /usr/local/OpenAudible 
+cd /config || exit
+echo "Hello. Thanks for trying Libation for Docker!" 
+echo "First time setup... Downloading Libation v11.2.0 ...."  
+wget -q --show-progress -O libation.deb https://github.com/rmcrackan/Libation/releases/download/v11.2.0/Libation.11.2.0-linux-chardonnay-amd64.deb
 
 
-err=$?
-echo "Install result $err"
 
-if [ $err -eq 0 ] 
-then 
-  echo "Successfully installed!" 
-  rm openaudible_installer.sh
-  cp -f /usr/local/OpenAudible/OpenAudible.desktop ~/Desktop/OpenAudible.desktop
-  echo "end install `date` ">>/tmp/oa.txt
+echo "Install Libation" # sudo is used to install to /usr/local
+sudo apt install ./libation.deb
+rm ./libation.deb
 
-  echo "Launching OpenAudible.  This terminal will close automatically..."
+mkdir -p /config/Desktop
+cp -f /usr/share/applications/Libation.desktop /config/Desktop/Libation.desktop
 
-  nohup OpenAudible >/dev/null 2>&1 &
-  echo "More information available at https://hub.docker.com/r/openaudible/openaudible and openaudible.org"
-  sleep 20
-
-exit
-
-else 
-  echo "Error installing..." >&2 
-  sleep 99999
-fi
+nohup libation >/dev/null 2>&1 &
+sleep 10
 
 
 

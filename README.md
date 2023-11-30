@@ -1,21 +1,21 @@
-# OpenAudible for Docker
+# Libation for Docker
 
-This container runs [OpenAudible](https://openaudible.org) with its GUI accessible by browser. 
+This container runs [Libation](https://github.com/rmcrackan/Libation) with its GUI accessible by browser.
 
-This is an experimental alternative to the supported and recommended desktop binaries available at [openaudible.org](https://openaudible.org). 
-
-This project is hosted on [github](https://github.com/openaudible/openaudible_docker) and [dockerhub](https://hub.docker.com/r/openaudible/openaudible)
+This project is hosted on [github](https://github.com/BCNelson/libation_docker)
 
 This project is based on the excellent [linuxserver.io/webtop](https://docs.linuxserver.io/images/docker-webtop) remote desktop container.
 
+This repo is based on [OpenAudible Docker](https://github.com/openaudible/openaudible_docker)
+
 ## Description
 
-OpenAudible runs on Linux, Mac, and Windows. This Docker container runs the latest linux version
+Libation runs on Linux, Mac, and Windows. This Docker container runs the latest linux version
 in a container running Ubuntu that is via web browser. It uses webtop by linuxserver.io. 
 
-This allows you to run OpenAudible from a container, on the cloud, or from any Docker capable system (NAS system?).
+This allows you to run Libation from a container, on the cloud, or from any Docker capable system (NAS system?).
 
-No passwords are needed to access the web page. For personal use. Only one user can
+No passwords are needed to access the web page. Only one user can
 view web sessions at one time-so this can't be used to share the application with multiple viewers at the same time.
 
 Important: DO NOT expose to WAN using port forwarding. Do not use as reverse proxy unless you ensure a user/password is required.  
@@ -23,19 +23,19 @@ Important: DO NOT expose to WAN using port forwarding. Do not use as reverse pro
 ## Quick Start
 
 ```
-docker run -d --rm -it -v $HOME/OpenAudible:/config/OpenAudible -p 3000:3000 -e PGID=`id -g` -e PUID=`id -u` --name openaudible openaudible/openaudible:latest
+docker run -d --rm -it -v $HOME/Libation:/config/Libation -p 3000:3000 -e PGID=`id -g` -e PUID=`id -u` --name Libation ghcr.io/bcnelson/libation_docker:latest
 ```
 
 Then open your web browser to http://localhost:3000
 
-Once OpenAudible has been started (by visiting the web site above), your books will and setting files will be available in ~/OpenAudible
+Once Libation has been started (by visiting the web site above), your books will and setting files will be available in ~/OpenAudible
 
 
 ## Building and running from source
 ```
-git clone https://github.com/openaudible/openaudible_docker.git 
-cd openaudible_docker
-./run.sh
+git clone https://github.com/BCNelson/libation_docker.git 
+cd libation_docker
+just run
 ```
 
 The [run.sh](run.sh) file builds and runs the docker image. 
@@ -63,7 +63,7 @@ Then re-run the command(s) above to start it anew. Your settings should still be
 * No password protection is enabled by default. 
 * https not supported, but it will work using a reverse proxy like traefik or nginx.  
 
-The Docker version of OpenAudible allowa user to try the software in a containerized, accessible-from-anywhere way.
+The Docker version of OpenAudible allows user to try the software in a containerized, accessible-from-anywhere way.
 
 ## TODO items
 * Add a user/password for accessing the VM 
@@ -73,12 +73,10 @@ The Docker version of OpenAudible allowa user to try the software in a container
 ## Notes
 * This is experimental and unsupported. We hope some people find it useful. It is a neat way to run a desktop app in a container.
 * IMPORTANT: DO NOT EXPOSE PORT 3000 to the WAN using port forwarding or reverse proxy as there is no security on the linux webtop!
-* If you find any issues, please report them on [github.com/openaudible/openaudible_docker/issues](https://github.com/openaudible/openaudible_docker/issues).
 * Before deleting the container and volume, if you logged into Audible, you should Log out using the Control Menu, which will delete your virtual device.
 * Would appreciate feedback or pull requests. 
 * Docker is great for testing something, but we still recommend the desktop app for most users.
 
 ## License
-This repository is licensed under the GNU GPL 3.0 because that is what [docker-webtop](https://github.com/linuxserver/docker-webtop) uses.
+This repository is licensed under the GNU GPL 3.0 because that is what [docker-webtop](https://github.com/linuxserver/docker-webtop) and [OpenAudible Docker](https://github.com/openaudible/openaudible_docker) uses.
 
-The OpenAudible desktop application is free to try shareware.

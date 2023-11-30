@@ -9,12 +9,12 @@ export oa_external=false
 export oa_packaging=docker
 
 
-FILE=/usr/local/bin/OpenAudible
+FILE=/usr/bin/libation
 if [ -f "$FILE" ]; then
     echo "$FILE exists."
-    OpenAudible &
+    libation &
 else 
-    echo "$FILE does not exist. Installing latest version."
+    echo "$FILE does not exist. Installing version 11.2"
     mkdir -p /config/Desktop
     xfce4-terminal --command /config/setup.sh &
 fi

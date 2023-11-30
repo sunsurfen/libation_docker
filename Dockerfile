@@ -20,6 +20,3 @@ COPY --from=debian:9.11 /usr/lib/locale /usr/lib/locale
 # copy slightly modified startvm.sh to defaults to start OpenAudible
 # This gets executed when a web browser hits the http://localhost:3000 page
 COPY startwm.sh /defaults/startwm.sh
-
-
-
