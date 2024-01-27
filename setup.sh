@@ -4,8 +4,8 @@ echo "start install $(date) ">>/tmp/oa.txt
 
 cd /config || exit
 echo "Hello. Thanks for trying Libation for Docker!" 
-echo "First time setup... Downloading Libation v11.2.0 ...."  
-wget -q --show-progress -O libation.deb https://github.com/rmcrackan/Libation/releases/download/v11.2.0/Libation.11.2.0-linux-chardonnay-amd64.deb
+echo "First time setup... Downloading Libation v11.1.0 ...."  
+wget -q --show-progress -O libation.deb https://github.com/rmcrackan/Libation/releases/download/v11.1.0/Libation.11.1.0-linux-chardonnay-amd64.deb
 
 
 

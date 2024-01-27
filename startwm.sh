@@ -14,7 +14,7 @@ if [ -f "$FILE" ]; then
     echo "$FILE exists."
     libation &
 else 
-    echo "$FILE does not exist. Installing version 11.2"
+    echo "$FILE does not exist. Installing version 11.1"
     mkdir -p /config/Desktop
     xfce4-terminal --command /config/setup.sh &
 fi
