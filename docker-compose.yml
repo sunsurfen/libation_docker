@@ -1,11 +1,13 @@
-version: "3.7"
 services:
-
-  libation:
-    build:
-      context: .
-      dockerfile: ./Dockerfile
-    ports:
-      - "3000:3000"
-    volumes:
-      - /share/ZFS18_DATA/Media/Books/Audible:/audiobooks
+    libation:
+        image: ceramicwhite/libation:latest
+        container_name: libation
+        security_opt:
+        - seccomp:unconfined #optional
+        stop_grace_period: 1m
+        restart: on-failure
+        ports:
+        - 3000:3000
+        volumes:
+        - /share/ZFS18_DATA/Media/Books/Audible:/config/Libation/Books
+        - /share/ZFS18_DATA/Media/Books/Libation:/config/Libation
