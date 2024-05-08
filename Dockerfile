@@ -1,19 +1,25 @@
-FROM ghcr.io/linuxserver/webtop:ubuntu-xfce
-ARG APP_VERSION=11.0.0
+# syntax=docker/dockerfile:1.6-labs
 
-EXPOSE 3000
-VOLUME /config/libation
+ARG GIT_TAG=${GIT_TAG:-11.1.0}
 
-# Download and install Libation
-ADD https://github.com/rmcrackan/Libation/releases/download/v${APP_VERSION}/Libation.${APP_VERSION}-linux-chardonnay-amd64.deb /libation.deb
-RUN apt install /libation.deb
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm as base
 
-# Make sure file encoding will be set to UTF-8. 
-COPY --from=debian:9.11 /usr/lib/locale /usr/lib/locale
+ARG GIT_TAG
 
-COPY startwm.sh /defaults/startwm.sh
+ENV PUID=${PUID:-1000} \
+    PGID=${PGID:-1000}
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    libgtk-3-bin ca-certificates wget libswt-webkit-gtk-4-jni vim xdg-utils libnss3-dev && \
-    apt remove -y xfce4-panel firefox
+COPY /root /
+
+RUN echo fs.inotify.max_user_instances=524288 | tee -a /etc/sysctl.conf && \
+    curl -fSL https://github.com/rmcrackan/Libation/releases/latest/download/Libation.${GIT_TAG}-linux-chardonnay-amd64.deb --output libation.deb && \
+    dpkg -i libation.deb || apt-get install -f && \
+    apt-get update && \
+    apt-get install -y \
+    libgtk-3-0 && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm libation.deb && \
+    curl -fSL https://raw.githubusercontent.com/rmcrackan/Libation/master/Source/LoadByOS/LinuxConfigApp/libation_glass.svg --output /usr/share/icons/hicolor/scalable/apps/libation.svg && \
+    mkdir /config/Books && \ 
+    chown -R 1000:1000 /config/Libation /config/Books && \
+    ln -s /config/Books /
