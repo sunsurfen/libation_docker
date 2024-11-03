@@ -20,6 +20,5 @@ RUN echo fs.inotify.max_user_instances=524288 | tee -a /etc/sysctl.conf && \
     rm -rf /var/lib/apt/lists/* && \
     rm libation.deb && \
     curl -fSL https://raw.githubusercontent.com/rmcrackan/Libation/master/Source/LoadByOS/LinuxConfigApp/libation_glass.svg --output /usr/share/icons/hicolor/scalable/apps/libation.svg && \
-    mkdir /config/Books && \ 
-    chown -R 1000:1000 /config/Libation /config/Books && \
-    ln -s /config/Books /
+    chown -R 1000:1000 /config/Libation && /data \
+    ln -s /data /
